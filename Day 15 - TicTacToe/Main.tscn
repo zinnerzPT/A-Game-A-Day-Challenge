@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Board.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Main.gd" type="Script" id=2]
+[ext_resource path="res://Circle.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Cross.tscn" type="PackedScene" id=4]
+[ext_resource path="res://GameOverMenu.tscn" type="PackedScene" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.623529, 1, 0.580392, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.379, 1, 0.31, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.541176, 0.690196, 1, 1 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.31, 0.5285, 1, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 5
+shadow_offset = Vector2( 5, 5 )
+
+[node name="Main" type="Node"]
+script = ExtResource( 2 )
+circle_scene = ExtResource( 3 )
+cross_scene = ExtResource( 4 )
+
+[node name="Board" parent="." instance=ExtResource( 1 )]
+position = Vector2( 384, 384 )
+scale = Vector2( 2, 2 )
+
+[node name="SidePanel" type="Panel" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -300.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="PlayerLabel" type="Label" parent="."]
+margin_left = 724.0
+margin_top = 100.0
+margin_right = 824.0
+margin_bottom = 150.0
+rect_scale = Vector2( 3, 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Next Player:"
+align = 1
+valign = 1
+
+[node name="PlayerPanel" type="Panel" parent="."]
+margin_left = 774.0
+margin_top = 250.0
+margin_right = 974.0
+margin_bottom = 450.0
+custom_styles/panel = SubResource( 2 )
+
+[node name="GameOverMenu" parent="." instance=ExtResource( 5 )]
+pause_mode = 2
+
+[connection signal="restart" from="GameOverMenu" to="." method="_on_GameOverMenu_restart"]
